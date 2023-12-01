@@ -1,8 +1,7 @@
-import { Button, TextInput, StyleSheet } from "react-native";
-import { View } from "../../components/Themed";
+import { Button, TextInput, StyleSheet, View } from "react-native";
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { router } from "expo-router";
+import { Redirect, router, useRootNavigationState } from "expo-router";
 
 export default function Login() {
   const [email, setEmail] = useState("");
