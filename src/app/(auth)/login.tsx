@@ -1,7 +1,9 @@
-import { Button, TextInput, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { Redirect, router, useRootNavigationState } from "expo-router";
+import { TextInput } from "../../components/Form/TextInput";
+import { Button } from "../../components/Form/Button";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -18,23 +20,15 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        placeholder="email"
-        onChangeText={(text: string) => setEmail(text)}
-        value={email}
-      />
-      <TextInput
-        placeholder="senha"
-        secureTextEntry={true}
-        onChangeText={(text: string) => setPassword(text)}
-        value={password}
-      />
+      <TextInput />
+      <TextInput />
+
       <Button
+        title="Entrar"
         onPress={() => {
           login();
           router.replace("/");
         }}
-        title="signin"
       />
     </View>
   );
