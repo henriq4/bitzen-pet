@@ -5,6 +5,7 @@ import { AuthProvider } from "../contexts/AuthContext";
 import { useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 import TabLayout from "./(tabs)/_layout";
+import { NativeBaseProvider } from "native-base";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -28,7 +29,9 @@ export default function RootLayout() {
 
   return (
     <AuthProvider>
-      <Slot />
+      <NativeBaseProvider>
+        <Slot />
+      </NativeBaseProvider>
     </AuthProvider>
   );
 }
