@@ -6,6 +6,13 @@ import { Button } from "../../components/Form/Button";
 import { useForm, Controller } from "react-hook-form";
 import { signInCredentials } from "../../contexts/AuthContext";
 import { router } from "expo-router";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const signInSchema = yup.object({
+  email: yup.string().email("Email inválido").required("Email obrigatório"),
+  password: yup.string().required("Senha obrigatória"),
+});
 
 export default function Login() {
   const { signIn } = useAuth();
@@ -14,10 +21,11 @@ export default function Login() {
     control,
     handleSubmit,
     formState: { errors, isLoading },
-  } = useForm<signInCredentials>();
+  } = useForm<signInCredentials>({
+    resolver: yupResolver(signInSchema),
+  });
 
   async function handleLogin(data: signInCredentials) {
-    console.log(data);
     await signIn(data);
     router.push("/");
   }
@@ -27,13 +35,6 @@ export default function Login() {
       <Controller
         control={control}
         name="email"
-        rules={{
-          required: "Email obrigatório",
-          pattern: {
-            value: /\S+@\S+\.\S+/,
-            message: "Insira um email válido",
-          },
-        }}
         render={({ field: { onChange } }) => (
           <TextInput
             placeholder="Email"
@@ -46,9 +47,6 @@ export default function Login() {
       <Controller
         control={control}
         name="password"
-        rules={{
-          required: "Senha obrigatória",
-        }}
         render={({ field: { onChange } }) => (
           <TextInput
             secureTextEntry

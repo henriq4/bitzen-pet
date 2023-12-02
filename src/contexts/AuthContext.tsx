@@ -73,8 +73,6 @@ export const AuthProvider = ({ children }: any) => {
         data: { token, user },
       } = response.data;
 
-      console.log(user);
-
       setUser({
         id: user.id,
         email: user.email,
