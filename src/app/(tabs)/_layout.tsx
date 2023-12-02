@@ -1,9 +1,6 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Redirect, Tabs, useRootNavigationState } from "expo-router";
 import { useAuth } from "../../hooks/useAuth";
-import { View } from "react-native";
-import { Button, Text } from "native-base";
-import { AddRoundedIcon } from "../../components/Icons/AddRoundedIcon";
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
@@ -28,9 +25,13 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Pets",
           headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="laptop" color={color} />,
+          tabBarLabel: "Pets",
+          tabBarIcon: ({ color }) => <TabBarIcon name="paw" color={color} />,
+          tabBarStyle: {
+            backgroundColor: "#FFF",
+            height: 60,
+          },
         }}
       />
       <Tabs.Screen
@@ -38,7 +39,11 @@ export default function TabLayout() {
         options={{
           title: "Conta",
           headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="laptop" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
+          tabBarStyle: {
+            backgroundColor: "#FFF",
+            height: 60,
+          },
         }}
       />
     </Tabs>
