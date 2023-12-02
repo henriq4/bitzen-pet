@@ -9,6 +9,7 @@ import { UserIcon } from "../../components/Icons/UserIcon";
 import { ArrowIosRightIcon } from "../../components/Icons/ArrowIosRightIcon";
 import { LogoutIcon } from "../../components/Icons/LogoutIcon";
 import { useAuth } from "../../hooks/useAuth";
+import { router } from "expo-router";
 
 export default function Account() {
   const { signOut } = useAuth();
@@ -48,7 +49,12 @@ export default function Account() {
       </Container>
 
       <View style={styles.infoContainer}>
-        <TouchableOpacity style={styles.infoItem} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.infoItem}
+          onPress={() => {
+            router.push("/(user)/user-data");
+          }}
+        >
           <View style={styles.infoItemContent}>
             <View style={{ width: 16 }} />
             <UserIcon />
