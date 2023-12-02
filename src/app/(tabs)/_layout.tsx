@@ -6,7 +6,7 @@ function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
   color: string;
 }) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+  return <FontAwesome size={26} style={{ marginBottom: -3 }} {...props} />;
 }
 
 export default function TabLayout() {
@@ -28,9 +28,18 @@ export default function TabLayout() {
           headerShown: false,
           tabBarLabel: "Pets",
           tabBarIcon: ({ color }) => <TabBarIcon name="paw" color={color} />,
+          tabBarIconStyle: {
+            marginTop: 10,
+          },
+          tabBarLabelStyle: {
+            marginBottom: 10,
+            fontSize: 14,
+          },
+          tabBarActiveTintColor: "#183E4B",
           tabBarStyle: {
+            borderColor: "#FFF",
             backgroundColor: "#FFF",
-            height: 60,
+            height: 80,
           },
         }}
       />
@@ -40,9 +49,17 @@ export default function TabLayout() {
           title: "Conta",
           headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
+          tabBarIconStyle: {
+            marginTop: 10,
+          },
+          tabBarLabelStyle: {
+            marginBottom: 10,
+            fontSize: 14,
+          },
+          tabBarActiveTintColor: "#183E4B",
           tabBarStyle: {
             backgroundColor: "#FFF",
-            height: 60,
+            height: 80,
           },
         }}
       />

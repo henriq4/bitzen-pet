@@ -37,7 +37,8 @@ export default function Login() {
       <Container
         display="flex"
         alignItems="center"
-        justifyContent="center"
+        justifyContent="flex-end"
+        paddingBottom="42px"
         height={277}
       >
         <Container
