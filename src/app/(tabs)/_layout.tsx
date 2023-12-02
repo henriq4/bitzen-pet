@@ -1,7 +1,9 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Redirect, Tabs, useRootNavigationState } from "expo-router";
 import { useAuth } from "../../hooks/useAuth";
-import { View, Text } from "react-native";
+import { View } from "react-native";
+import { Button, Text } from "native-base";
+import { AddRoundedIcon } from "../../components/Icons/AddRoundedIcon";
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
@@ -27,46 +29,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Pets",
-          headerTitle: "",
-          // headerRight: () => (
-          //   <FontAwesome.Button
-          //     name="plus"
-          //     backgroundColor="#F9F9F9"
-          //     color="#000"
-          //   />
-          // ),
-          headerBackground(props) {
-            return (
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  paddingHorizontal: 20,
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  backgroundColor: "#F9F9F9",
-                  height: 130,
-                }}
-              >
-                <Text>Seus Pets</Text>
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <FontAwesome.Button
-                    name="plus"
-                    backgroundColor="#F9F9F9"
-                    color="#000"
-                  />
-                  <Text>Novo pet</Text>
-                </View>
-              </View>
-            );
-          },
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="laptop" color={color} />,
         }}
       />
