@@ -6,7 +6,7 @@ type ButtonProps = IButtonProps & {
 
 export function Button({ title, ...rest }: ButtonProps) {
   return (
-    <NativeBaseButton bg="#183E4B" w="full" {...rest}>
+    <NativeBaseButton bg="#183E4B" w="full" h="48px" {...rest}>
       <Text color="#FFF">{title}</Text>
     </NativeBaseButton>
   );

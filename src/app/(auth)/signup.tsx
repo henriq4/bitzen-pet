@@ -8,73 +8,108 @@ import { useAuth } from "../../hooks/useAuth";
 import { TextInput } from "../../components/Form/TextInput";
 import { Button } from "../../components/Form/Button";
 import { useForm, Controller } from "react-hook-form";
-import { signInCredentials } from "../../contexts/AuthContext";
+import {
+  signInCredentials,
+  signUpCredentials,
+} from "../../contexts/AuthContext";
 import { router } from "expo-router";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ArrowIosRightIcon } from "../../components/Icons/ArrowIosRightIcon";
 import { PetBrandIcon } from "../../components/Icons/PetBrandIcon";
 import { Container, Text } from "native-base";
+import { Header } from "../../components/Header";
 
 const signInSchema = yup.object({
+  name: yup.string().required("Nome obrigatório"),
+  document: yup.string().required("CPF obrigatório"),
+  phone_number: yup.string().required("Telefone obrigatório"),
   email: yup.string().email("Email inválido").required("Email obrigatório"),
   password: yup.string().required("Senha obrigatória"),
+  password_confirmation: yup
+    .string()
+    .required("Confirmação de senha obrigatória"),
 });
 
-export default function Login() {
-  const { signIn } = useAuth();
+export default function SignUp() {
+  const { signUp } = useAuth();
 
   const {
     control,
     handleSubmit,
     formState: { errors, isLoading },
-  } = useForm<signInCredentials>({
+  } = useForm<signUpCredentials>({
     resolver: yupResolver(signInSchema),
   });
 
-  async function handleLogin(data: signInCredentials) {
-    await signIn(data);
+  async function handleLogin(data: signUpCredentials) {
+    // await SignUp(data);
     router.push("/");
   }
 
   return (
     <View style={styles.container}>
-      <Container
-        display="flex"
-        alignItems="center"
-        justifyContent="flex-end"
-        paddingBottom="42px"
-        height={277}
-      >
-        <Container
-          width={106}
-          height={106}
-          bgColor="#FFF"
-          rounded="full"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <PetBrandIcon width={56} height={56} />
-        </Container>
-
-        <Text marginTop="16px" color="#FFF" fontSize="20px">
-          Bitzen Pet
-        </Text>
-      </Container>
+      <Header title="Cadastro" />
 
       <View style={styles.formContainer}>
-        <Text fontSize="20px">Que bom te ver por aqui!</Text>
+        <Text fontSize="20px" alignSelf="flex-start">
+          Cadastre-se gratuitamente
+        </Text>
+
+        <Controller
+          control={control}
+          name="name"
+          render={({ field: { onChange } }) => (
+            <TextInput
+              placeholder="Seu nome"
+              onChangeText={onChange}
+              errorMessage={errors.name?.message}
+              marginTop="24px"
+            />
+          )}
+        />
+
+        <View style={styles.spacer} />
+
+        <Controller
+          control={control}
+          name="document"
+          render={({ field: { onChange } }) => (
+            <TextInput
+              secureTextEntry
+              placeholder="CPF"
+              onChangeText={onChange}
+              errorMessage={errors.document?.message}
+            />
+          )}
+        />
+
+        <View style={styles.spacer} />
 
         <Controller
           control={control}
           name="email"
           render={({ field: { onChange } }) => (
             <TextInput
+              secureTextEntry
               placeholder="Email"
               onChangeText={onChange}
               errorMessage={errors.email?.message}
-              marginTop="42px"
+            />
+          )}
+        />
+
+        <View style={styles.spacer} />
+
+        <Controller
+          control={control}
+          name="phone_number"
+          render={({ field: { onChange } }) => (
+            <TextInput
+              secureTextEntry
+              placeholder="Telefone"
+              onChangeText={onChange}
+              errorMessage={errors.phone_number?.message}
             />
           )}
         />
@@ -96,28 +131,32 @@ export default function Login() {
 
         <View style={styles.spacer} />
 
-        <View style={styles.forgotPassword}>
-          <Text>Esqueceu sua senha?</Text>
-        </View>
+        <Controller
+          control={control}
+          name="password_confirmation"
+          render={({ field: { onChange } }) => (
+            <TextInput
+              secureTextEntry
+              placeholder="Confirmar senha"
+              onChangeText={onChange}
+              errorMessage={errors.password_confirmation?.message}
+            />
+          )}
+        />
 
         <Button
           marginTop="24px"
           isLoading={isLoading}
-          title="Entrar"
+          title="Criar conta"
           onPress={handleSubmit(handleLogin)}
         />
 
-        <TouchableOpacity
-          style={styles.goToSignUp}
-          onPress={() => {
-            router.push("/(auth)/signup");
-          }}
-        >
+        <TouchableOpacity style={styles.goToSignUp}>
           <Text>
-            Não tem uma conta?
+            Já tem uma conta?
             <Text color="#183E4B" fontWeight="bold">
               {" "}
-              Cadastre-se
+              Entrar
             </Text>
           </Text>
         </TouchableOpacity>
@@ -129,7 +168,6 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0998B2", // #00B8C4, #197EA0
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -140,12 +178,11 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     width: "100%",
-    height: "50%",
     backgroundColor: "#FFF",
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: 48,
+    paddingTop: 24,
   },
   spacer: {
     height: 16,
