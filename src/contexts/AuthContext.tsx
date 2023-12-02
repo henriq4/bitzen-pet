@@ -4,21 +4,21 @@ import * as SecureStore from "expo-secure-store";
 import { User } from "../models/User";
 import { router } from "expo-router";
 
-type onRegisterCredentials = {
+export type signUpCredentials = {
   email: string;
   password: string;
 };
 
-type onLoginCredentials = {
+export type signInCredentials = {
   email: string;
   password: string;
 };
 
 interface AuthContextData {
   isAuthenticated: boolean;
-  onRegister: (credentials: onRegisterCredentials) => Promise<any>;
-  onLogin: (credentials: onLoginCredentials) => Promise<any>;
-  onLogout: () => Promise<any>;
+  signUp: (credentials: signUpCredentials) => Promise<any>;
+  signIn: (credentials: signInCredentials) => Promise<any>;
+  signOut: () => Promise<any>;
   user: User | undefined;
 }
 
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }: any) => {
     fetchToken();
   }, []);
 
-  const onRegister = async ({ email, password }: onRegisterCredentials) => {
+  const signUp = async ({ email, password }: signUpCredentials) => {
     try {
       const response = await axios.post(`${API_URL}/auth/register`, {
         email,
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
 
-  const onLogin = async ({ email, password }: onLoginCredentials) => {
+  const signIn = async ({ email, password }: signInCredentials) => {
     try {
       const response = await axios.post(`${API_URL}/login`, {
         email,
@@ -72,6 +72,8 @@ export const AuthProvider = ({ children }: any) => {
       const {
         data: { token, user },
       } = response.data;
+
+      console.log(user);
 
       setUser({
         id: user.id,
@@ -92,7 +94,7 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
 
-  const onLogout = async () => {
+  const signOut = async () => {
     try {
       await SecureStore.deleteItemAsync(AUTH_TOKEN);
 
@@ -108,9 +110,9 @@ export const AuthProvider = ({ children }: any) => {
     <AuthContext.Provider
       value={{
         isAuthenticated,
-        onRegister,
-        onLogin,
-        onLogout,
+        signUp,
+        signIn,
+        signOut,
         user,
       }}
     >

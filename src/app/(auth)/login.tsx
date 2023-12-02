@@ -1,34 +1,67 @@
 import { StyleSheet, View } from "react-native";
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { Redirect, router, useRootNavigationState } from "expo-router";
 import { TextInput } from "../../components/Form/TextInput";
 import { Button } from "../../components/Form/Button";
+import { useForm, Controller } from "react-hook-form";
+import { signInCredentials } from "../../contexts/AuthContext";
+import { router } from "expo-router";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { signIn } = useAuth();
 
-  const { onLogin } = useAuth();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isLoading },
+  } = useForm<signInCredentials>();
 
-  const login = async () => {
-    const result = await onLogin({ email, password });
-    if (result && result.error) {
-      alert("error");
-    }
-  };
+  async function handleLogin(data: signInCredentials) {
+    console.log(data);
+    await signIn(data);
+    router.push("/");
+  }
 
   return (
     <View style={styles.container}>
-      <TextInput />
-      <TextInput />
+      <Controller
+        control={control}
+        name="email"
+        rules={{
+          required: "Email obrigatório",
+          pattern: {
+            value: /\S+@\S+\.\S+/,
+            message: "Insira um email válido",
+          },
+        }}
+        render={({ field: { onChange } }) => (
+          <TextInput
+            placeholder="Email"
+            onChangeText={onChange}
+            errorMessage={errors.email?.message}
+          />
+        )}
+      />
+
+      <Controller
+        control={control}
+        name="password"
+        rules={{
+          required: "Senha obrigatória",
+        }}
+        render={({ field: { onChange } }) => (
+          <TextInput
+            secureTextEntry
+            placeholder="Senha"
+            onChangeText={onChange}
+            errorMessage={errors.password?.message}
+          />
+        )}
+      />
 
       <Button
-        title="Entrar"
-        onPress={() => {
-          login();
-          router.replace("/");
-        }}
+        title={isLoading ? "loading" : "ntrar"}
+        onPress={handleSubmit(handleLogin)}
       />
     </View>
   );
@@ -39,14 +72,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+    paddingHorizontal: 20,
   },
 });
