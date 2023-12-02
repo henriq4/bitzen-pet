@@ -5,8 +5,12 @@ import { User } from "../models/User";
 import { router } from "expo-router";
 
 export type signUpCredentials = {
+  name: string;
   email: string;
+  document: string;
+  phone_number: string;
   password: string;
+  password_confirmation: string;
 };
 
 export type signInCredentials = {
