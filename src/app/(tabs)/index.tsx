@@ -6,7 +6,7 @@ import { AddRoundedIcon } from "../../components/Icons/AddRoundedIcon";
 import { SearchIcon } from "../../components/Icons/SearchIcon";
 import { PetCard } from "../../components/PetCard";
 
-export default function TabOneScreen() {
+export default function Home() {
   return (
     <View style={styles.container}>
       <View
