@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { API_URL } from "../config/constants";
 import { CreatePet, Pet, PetRaw } from "../models/Pet";
 
@@ -26,7 +26,12 @@ export async function fetchPet(petId: string): Promise<Pet> {
 
 export async function createPet(data: FormData): Promise<void> {
   await axios.post(`${API_URL}/pets`, data, {
+    transformRequest: () => {
+      console.log(data);
+      return data;
+    },
     headers: {
+      Accept: "application/json",
       "Content-Type": "multipart/form-data",
     },
   });

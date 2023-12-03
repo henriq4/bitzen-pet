@@ -6,14 +6,17 @@ import { MutableRefObject, Ref, useImperativeHandle, useState } from "react";
 
 interface ImagePickerProps {
   onPress: () => void;
+  hasImage: boolean;
 }
 
-export function ImagePicker({ onPress }: ImagePickerProps) {
+export function ImagePicker({ onPress, hasImage }: ImagePickerProps) {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <CameraIcon />
       <Text marginTop="16px" fontSize="16px" color="#595959" textAlign="center">
-        Clique para adicionar uma imagem
+        {hasImage
+          ? "Clique para trocar a foto adicionada"
+          : "Clique para adicionar uma imagem"}
       </Text>
     </TouchableOpacity>
   );

@@ -24,6 +24,8 @@ import * as ExpoImagePicker from "expo-image-picker";
 import { useEffect, useRef, useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { usePickImage } from "../../components/Form/ImagePicker/hook";
+import { formatDate } from "../../utils/formatDate";
+import { AxiosError } from "axios";
 
 const createPetSchema = yup.object({
   name: yup.string().required("Nome obrigatório"),
@@ -32,7 +34,7 @@ const createPetSchema = yup.object({
 });
 
 export default function PetCreate() {
-  const { date, onDataChange, show, setShow } = useDatePicker();
+  const { date, onDataChange, show, setShow, dataChanged } = useDatePicker();
   const { image, pickImage } = usePickImage();
 
   const {
@@ -56,10 +58,6 @@ export default function PetCreate() {
       return;
     }
 
-    const formattedDate: string = Intl.DateTimeFormat("en-US")
-      .format(date)
-      .replace(/\//g, "-");
-
     const imageFilename = image.uri.substring(
       image.uri.lastIndexOf("/") + 1,
       image.uri.length
@@ -70,19 +68,22 @@ export default function PetCreate() {
     formData.append("name", data.name);
     formData.append("color", data.color);
     formData.append("description", data.description);
-    formData.append("birthdate", formattedDate);
+    formData.append("birthdate", formatDate(date));
 
+    // @ts-ignore
     formData.append("image", {
       uri: image.uri,
+      name: `image.${imageExtension}`,
       type: `image/${imageExtension}`,
-      name: imageFilename,
     });
 
     try {
       await createPet(formData);
+
+      router.push("/");
     } catch (error: any) {
-      if (error instanceof Error) {
-        ToastAndroid.show(error.message, ToastAndroid.SHORT);
+      if (error instanceof AxiosError) {
+        ToastAndroid.show(error.response?.data.data.image, ToastAndroid.SHORT);
       }
     }
   }
@@ -95,7 +96,7 @@ export default function PetCreate() {
         <View>
           <Text style={styles.subtitle}>Foto</Text>
 
-          <ImagePicker onPress={pickImage} />
+          <ImagePicker hasImage={!!image} onPress={pickImage} />
         </View>
 
         <Text style={styles.subtitle}>Informações</Text>
@@ -142,7 +143,9 @@ export default function PetCreate() {
             name="birthdate"
             render={() => (
               <DatePicker
-                label="dsa"
+                label={
+                  dataChanged ? date.toLocaleDateString() : "Data de nascimento"
+                }
                 onPress={() => {
                   setShow(!show);
                 }}
