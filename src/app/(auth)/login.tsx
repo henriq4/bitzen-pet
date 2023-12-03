@@ -103,9 +103,14 @@ export default function Login() {
 
         <View style={styles.spacer} />
 
-        <View style={styles.forgotPassword}>
+        <TouchableOpacity
+          style={styles.forgotPassword}
+          onPress={() => {
+            router.push("/(auth)/(reset-password)/forget-password");
+          }}
+        >
           <Text>Esqueceu sua senha?</Text>
-        </View>
+        </TouchableOpacity>
 
         <Button
           marginTop="24px"
