@@ -8,20 +8,20 @@ import { PetCard } from "../../components/PetCard";
 import { router } from "expo-router";
 import { SearchBar } from "../../components/Form/SearchBar";
 import { useEffect, useState } from "react";
-import { fetchAll } from "../../services/petService";
-import { Pet } from "../../models/Pet";
+import { fetchPet } from "../../services/petService";
+import { PetRaw } from "../../models/Pet";
 import { Loading } from "../../components/Utils/Loading";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [pets, setPets] = useState<Pet[]>([]);
+  const [pets, setPets] = useState<PetRaw[]>([]);
 
   useEffect(() => {
     async function fetchData() {
       setIsLoading(true);
 
       try {
-        const pets = await fetchAll();
+        const pets = await fetchPet();
         setPets(pets);
         console.log(pets);
         console.log(pets.length);

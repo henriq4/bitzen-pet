@@ -1,9 +1,9 @@
 import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import { Text } from "native-base";
 import { Link, useRouter } from "expo-router";
-import { Pet } from "../../models/Pet";
+import { PetRaw } from "../../models/Pet";
 
-export function PetCard({ id, image_url, name }: Pet) {
+export function PetCard({ id, image_url, name }: PetRaw) {
   const router = useRouter();
 
   return (

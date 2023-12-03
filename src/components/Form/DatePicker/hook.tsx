@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export function useDatePicker() {
-  const [date, setDate] = useState<Date | null>(null);
+  const [date, setDate] = useState<Date>(new Date());
   const [show, setShow] = useState<boolean>(false);
 
   const onDataChange = (_: any, selectedDate: any) => {

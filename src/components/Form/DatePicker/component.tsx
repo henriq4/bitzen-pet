@@ -1,34 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Text, View } from "native-base";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import { useDatePicker } from "./hook";
 import { CalendarIcon } from "../../Icons/CalendarIcon";
 
-export function DatePicker() {
-  const { date, show, onDataChange, setShow } = useDatePicker();
+interface DatePickerProps {
+  label: string;
+  onPress: () => void;
+}
 
+export function DatePicker({ label, onPress }: DatePickerProps) {
   return (
-    <>
-      {show && (
-        <DateTimePicker
-          value={new Date()}
-          mode="date"
-          display="default"
-          onChange={onDataChange}
-        />
-      )}
-
-      <TouchableOpacity
-        style={styles.container}
-        onPress={() => {
-          setShow(true);
-        }}
-      >
-        <Text color="#8C8C8C">Ola</Text>
-        <CalendarIcon />
-      </TouchableOpacity>
-    </>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <Text color="#8C8C8C">{label}</Text>
+      <CalendarIcon />
+    </TouchableOpacity>
   );
 }
 
