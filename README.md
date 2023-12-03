@@ -61,3 +61,15 @@ A lib de components NativeBase tem uma issue no código (ainda não solucionada)
 Para facilitar o teste para o código, foi criado um patch de atualização da biblioteca através do Git. Confira o patch [aqui](./patches/native-base+3.4.28.patch).
 
 [Atualizações sobre a issue](https://github.com/GeekyAnts/NativeBase/issues/5778)
+
+#### User image_url
+
+Não foi integrado a image_url do usuário, como visto em páginas como `src/app/(tabs)/account.tsxsrc/app/(tabs)/account.tsx` e `/src/app/(user)/user-data.tsx/home/henriq4/code/bitzen-pet/src/app/(user)/user-data.tsx`, pois a API atualmente está retornando uma url de uma página web que contém a imagem, e não a imagem em si.
+
+Pelas demais imagens estarem sendo retornadas corretamente, acredito que seja um possível erro na API. Portanto, coloquei uma imagem padrão para os usuários.
+
+##### Comparativo entre as responses:
+
+- [Pet response](./docs/image_url_pet.png)
+
+- [User response](./docs/image_url_user.png)
