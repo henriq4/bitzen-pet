@@ -3,6 +3,8 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   View,
+  ScrollView,
+  ToastAndroid,
 } from "react-native";
 import { useAuth } from "../../hooks/useAuth";
 import { TextInput } from "../../components/Form/TextInput";
@@ -17,8 +19,11 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ArrowIosRightIcon } from "../../components/Icons/ArrowIosRightIcon";
 import { PetBrandIcon } from "../../components/Icons/PetBrandIcon";
-import { Container, Text } from "native-base";
+import { Checkbox, Container, Text } from "native-base";
 import { Header } from "../../components/Header";
+import { useState } from "react";
+import { FacebookIcon } from "../../components/Icons/FacebookIcon";
+import { GoogleIcon } from "../../components/Icons/GoogleIcon";
 
 const signInSchema = yup.object({
   name: yup.string().required("Nome obrigatório"),
@@ -32,6 +37,8 @@ const signInSchema = yup.object({
 });
 
 export default function SignUp() {
+  const [isTermsChecked, setIsTermsChecked] = useState<boolean>(false);
+
   const { signUp } = useAuth();
 
   const {
@@ -48,7 +55,7 @@ export default function SignUp() {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Header title="Cadastro" />
 
       <View style={styles.formContainer}>
@@ -144,6 +151,39 @@ export default function SignUp() {
           )}
         />
 
+        <View style={styles.spacer} />
+
+        <View>
+          <Checkbox
+            value="true"
+            onChange={() => {
+              setIsTermsChecked(!isTermsChecked);
+            }}
+          >
+            <Text fontSize="14px" color="#8C8C8C" lineHeight="18px">
+              Li e concordo com os{" "}
+              <Text
+                textDecorationLine="underline"
+                fontSize="14px"
+                color="#183E4B"
+                fontWeight="bold"
+              >
+                Termos de uso
+              </Text>{" "}
+              e a{" "}
+              <Text
+                textDecorationLine="underline"
+                fontSize="14px"
+                color="#183E4B"
+                fontWeight="bold"
+              >
+                Política de privacidade
+              </Text>{" "}
+              do aplicativo Patada.
+            </Text>
+          </Checkbox>
+        </View>
+
         <Button
           marginTop="24px"
           isLoading={isLoading}
@@ -151,9 +191,80 @@ export default function SignUp() {
           onPress={handleSubmit(handleLogin)}
         />
 
+        <View style={styles.alternativeSignUp}>
+          <TouchableOpacity
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <View style={{ height: 1, flex: 1, backgroundColor: "#E3E3E3" }} />
+            <Text paddingX="12px" fontSize="14px" color="#737373">
+              ou se cadastre com
+            </Text>
+            <View style={{ height: 1, flex: 1, backgroundColor: "#E3E3E3" }} />
+          </TouchableOpacity>
+
+          <View style={{ height: 16 }} />
+
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                flex: 1,
+                height: 40,
+                borderWidth: 1,
+                borderColor: "#CCCCCC",
+                borderRadius: 8,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => {
+                ToastAndroid.show(
+                  "Método não implementado",
+                  ToastAndroid.SHORT
+                );
+              }}
+            >
+              <GoogleIcon />
+            </TouchableOpacity>
+
+            <View style={{ width: 16 }} />
+
+            <TouchableOpacity
+              style={{
+                flex: 1,
+                height: 40,
+                borderWidth: 1,
+                borderColor: "#CCCCCC",
+                borderRadius: 8,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => {
+                ToastAndroid.show(
+                  "Método não implementado",
+                  ToastAndroid.SHORT
+                );
+              }}
+            >
+              <FacebookIcon />
+            </TouchableOpacity>
+          </View>
+        </View>
+
         <TouchableOpacity style={styles.goToSignUp}>
-          <Text>
-            Já tem uma conta?
+          <Text color="#737373">
+            Já possui uma conta?
             <Text color="#183E4B" fontWeight="bold">
               {" "}
               Entrar
@@ -161,16 +272,15 @@ export default function SignUp() {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+
+      <View style={{ height: 40 }} />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
   },
   formContainer: {
     flex: 1,
@@ -195,5 +305,11 @@ const styles = StyleSheet.create({
   },
   goToSignUp: {
     marginTop: 12,
+  },
+  alternativeSignUp: {
+    marginTop: 20,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
