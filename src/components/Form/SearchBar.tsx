@@ -2,11 +2,11 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "native-base";
 import { SearchIcon } from "../Icons/SearchIcon";
 
-interface IsearchBarProps {
+interface ISearchBarProps {
   placeholder: string;
 }
 
-export function SearchBar({ placeholder }: IsearchBarProps) {
+export function SearchBar({ placeholder }: ISearchBarProps) {
   return (
     <View style={styles.container}>
       <SearchIcon />
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingVertical: 12,
     paddingHorizontal: 12,
-    marginTop: 20,
+    marginVertical: 20,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",

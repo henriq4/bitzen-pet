@@ -1,14 +1,50 @@
-import { ImageBackground, View } from "react-native";
+import { FlatList, ImageBackground, ToastAndroid, View } from "react-native";
 
-import { Button, Text, Input, Icon, ScrollView } from "native-base";
+import { Button, Text } from "native-base";
 import { StyleSheet } from "react-native";
 import { AddRoundedIcon } from "../../components/Icons/AddRoundedIcon";
 import { SearchIcon } from "../../components/Icons/SearchIcon";
 import { PetCard } from "../../components/PetCard";
 import { router } from "expo-router";
 import { SearchBar } from "../../components/Form/SearchBar";
+import { useEffect, useState } from "react";
+import { fetchAll } from "../../services/petService";
+import { Pet } from "../../models/Pet";
+import { Loading } from "../../components/Utils/Loading";
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [pets, setPets] = useState<Pet[]>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      setIsLoading(true);
+
+      try {
+        const pets = await fetchAll();
+        setPets(pets);
+        console.log(pets);
+        console.log(pets.length);
+      } catch (error) {
+        if (error instanceof Error) {
+          ToastAndroid.show(error.message, ToastAndroid.SHORT);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  // if (isLoading) {
+  //   return (
+  //     <Center>
+  //       <Text>aa</Text>
+  //     </Center>
+  //   );
+  // }
+
   return (
     <View style={styles.container}>
       <View
@@ -46,14 +82,25 @@ export default function Home() {
         </View>
       </View>
 
-      <ScrollView style={styles.contentContainer}>
-        <SearchBar placeholder="Pesquisar um pet" />
-
-        <View style={{ height: 24 }} />
-
-        <PetCard />
-        <PetCard />
-      </ScrollView>
+      {isLoading ? (
+        <Loading accessibilityLabel="Carregando pets" />
+      ) : (
+        <FlatList
+          ListEmptyComponent={<Text>bb</Text>}
+          ListHeaderComponent={<SearchBar placeholder="Pesquisar um pet" />}
+          style={styles.contentContainer}
+          data={pets}
+          renderItem={({ item: pet }) => (
+            <PetCard
+              key={pet.id}
+              id={pet.id}
+              image_url={pet.image_url}
+              name={pet.name}
+              user_id={pet.user_id}
+            />
+          )}
+        />
+      )}
     </View>
   );
 }

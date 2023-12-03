@@ -1,13 +1,14 @@
 import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import { Text } from "native-base";
 import { Link, useRouter } from "expo-router";
+import { Pet } from "../../models/Pet";
 
-export function PetCard() {
+export function PetCard({ id, image_url, name }: Pet) {
   const router = useRouter();
 
   return (
     <ImageBackground
-      source={{ uri: "https://i.ibb.co/5FT3xbT/1.png" }}
+      source={{ uri: image_url }}
       borderRadius={16}
       style={styles.cardContent}
     >
@@ -18,7 +19,7 @@ export function PetCard() {
         }}
       >
         <Text fontSize="24px" fontWeight="bold" color="#FFF">
-          Leona
+          {name}
         </Text>
       </TouchableOpacity>
     </ImageBackground>
@@ -28,8 +29,6 @@ export function PetCard() {
 const styles = StyleSheet.create({
   cardContent: {
     height: 344,
-    display: "flex",
-    justifyContent: "flex-end",
     marginVertical: 12,
   },
   cardFilter: {
@@ -38,5 +37,7 @@ const styles = StyleSheet.create({
     padding: 16,
     width: "100%",
     height: "100%",
+    display: "flex",
+    justifyContent: "flex-end",
   },
 });
