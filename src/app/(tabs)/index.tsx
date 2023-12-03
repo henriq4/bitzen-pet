@@ -5,6 +5,8 @@ import { StyleSheet } from "react-native";
 import { AddRoundedIcon } from "../../components/Icons/AddRoundedIcon";
 import { SearchIcon } from "../../components/Icons/SearchIcon";
 import { PetCard } from "../../components/PetCard";
+import { router } from "expo-router";
+import { SearchBar } from "../../components/Form/SearchBar";
 
 export default function Home() {
   return (
@@ -32,19 +34,20 @@ export default function Home() {
             justifyContent: "space-between",
           }}
         >
-          <Button leftIcon={<AddRoundedIcon />} colorScheme="white">
+          <Button
+            leftIcon={<AddRoundedIcon />}
+            colorScheme="white"
+            onPress={() => {
+              router.push("/(pet)/create");
+            }}
+          >
             <Text>Novo pet</Text>
           </Button>
         </View>
       </View>
 
       <ScrollView style={styles.contentContainer}>
-        <View style={styles.searchBar}>
-          <SearchIcon />
-          <Text marginLeft="12px" color="#B3B3B3">
-            Pesquisar um pet
-          </Text>
-        </View>
+        <SearchBar placeholder="Pesquisar um pet" />
 
         <View style={{ height: 24 }} />
 
@@ -63,19 +66,5 @@ const styles = StyleSheet.create({
   contentContainer: {
     width: "100%",
     paddingHorizontal: 20,
-  },
-  searchBar: {
-    backgroundColor: "#F9F9F9",
-    height: 48,
-    borderColor: "#E6E6E6",
-    borderWidth: 1,
-    borderRadius: 4,
-    paddingVertical: 12,
-    paddingHorizontal: 12,
-    marginTop: 20,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
   },
 });
