@@ -26,7 +26,9 @@ Projeto construído para vaga de estágio na Bitzen.
 
 ## APK
 
-Download:
+O aplicativo foi buildado com credenciais de desenvolvimento, e está disponível para download durante 60 dias a partir do dia de hoje (03/12/2023).
+
+**[Clique aqui para baixar](https://expo.dev/artifacts/eas/2CrnemttWnyh2HpQDSq9w7.apk)**
 
 ## Desenvolvimento
 
