@@ -10,10 +10,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { TextInput } from "../../components/Form/TextInput";
 import { Button } from "../../components/Form/Button";
 import { useForm, Controller } from "react-hook-form";
-import {
-  signInCredentials,
-  signUpCredentials,
-} from "../../contexts/AuthContext";
+import { signUpCredentials } from "../../contexts/AuthContext";
 import { router } from "expo-router";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -25,7 +22,7 @@ import { useState } from "react";
 import { FacebookIcon } from "../../components/Icons/FacebookIcon";
 import { GoogleIcon } from "../../components/Icons/GoogleIcon";
 
-const signInSchema = yup.object({
+const signUpSchema = yup.object({
   name: yup.string().required("Nome obrigatório"),
   document: yup.string().required("CPF obrigatório"),
   phone_number: yup.string().required("Telefone obrigatório"),
@@ -44,14 +41,29 @@ export default function SignUp() {
   const {
     control,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors, isLoading, isSubmitting },
   } = useForm<signUpCredentials>({
-    resolver: yupResolver(signInSchema),
+    resolver: yupResolver(signUpSchema),
   });
 
   async function handleLogin(data: signUpCredentials) {
-    // await SignUp(data);
-    router.push("/");
+    if (!isTermsChecked) {
+      ToastAndroid.show(
+        "Você precisa concordar com os termos de uso e a política de privacidade",
+        ToastAndroid.SHORT
+      );
+
+      return;
+    }
+
+    try {
+      await signUp(data);
+      router.push("/");
+    } catch (error: any) {
+      if (error instanceof Error) {
+        ToastAndroid.show(error.message, ToastAndroid.SHORT);
+      }
+    }
   }
 
   return (
@@ -83,7 +95,6 @@ export default function SignUp() {
           name="document"
           render={({ field: { onChange } }) => (
             <TextInput
-              secureTextEntry
               placeholder="CPF"
               onChangeText={onChange}
               errorMessage={errors.document?.message}
@@ -98,7 +109,6 @@ export default function SignUp() {
           name="email"
           render={({ field: { onChange } }) => (
             <TextInput
-              secureTextEntry
               placeholder="Email"
               onChangeText={onChange}
               errorMessage={errors.email?.message}
@@ -113,7 +123,6 @@ export default function SignUp() {
           name="phone_number"
           render={({ field: { onChange } }) => (
             <TextInput
-              secureTextEntry
               placeholder="Telefone"
               onChangeText={onChange}
               errorMessage={errors.phone_number?.message}
@@ -186,7 +195,7 @@ export default function SignUp() {
 
         <Button
           marginTop="24px"
-          isLoading={isLoading}
+          isLoading={isLoading || isSubmitting}
           title="Criar conta"
           onPress={handleSubmit(handleLogin)}
         />

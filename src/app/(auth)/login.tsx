@@ -1,5 +1,6 @@
 import {
   StyleSheet,
+  ToastAndroid,
   TouchableHighlight,
   TouchableOpacity,
   View,
@@ -27,14 +28,20 @@ export default function Login() {
   const {
     control,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors, isLoading, isSubmitting },
   } = useForm<signInCredentials>({
     resolver: yupResolver(signInSchema),
   });
 
   async function handleLogin(data: signInCredentials) {
-    await signIn(data);
-    router.push("/");
+    try {
+      await signIn(data);
+      router.push("/");
+    } catch (error: any) {
+      if (error instanceof Error) {
+        ToastAndroid.show(error.message, ToastAndroid.SHORT);
+      }
+    }
   }
 
   return (
@@ -102,7 +109,7 @@ export default function Login() {
 
         <Button
           marginTop="24px"
-          isLoading={isLoading}
+          isLoading={isLoading || isSubmitting}
           title="Entrar"
           onPress={handleSubmit(handleLogin)}
         />
