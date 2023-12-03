@@ -3,6 +3,7 @@ import axios, { AxiosError } from "axios";
 import * as SecureStore from "expo-secure-store";
 import { User } from "../models/User";
 import { router } from "expo-router";
+import { API_URL } from "../config/constants";
 
 export type signUpCredentials = {
   name: string;
@@ -18,10 +19,6 @@ export type signInCredentials = {
   password: string;
 };
 
-interface credentialsError {
-  message: string;
-}
-
 interface AuthContextData {
   isAuthenticated: boolean;
   signUp: (credentials: signUpCredentials) => Promise<any>;
@@ -31,7 +28,6 @@ interface AuthContextData {
 }
 
 const AUTH_TOKEN = "AUTH_TOKEN";
-const API_URL = "https://api.bitzen-pet.homologacao.bitzenwebsites.net/api";
 
 export const AuthContext = createContext<AuthContextData>(
   {} as AuthContextData
