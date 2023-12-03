@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
-import { Text, View } from "native-base";
-import { useDatePicker } from "./hook";
+import { Text } from "native-base";
 import { CalendarIcon } from "../../Icons/CalendarIcon";
 
 interface DatePickerProps {

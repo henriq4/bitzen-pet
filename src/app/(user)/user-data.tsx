@@ -1,6 +1,5 @@
 import { ImageBackground, TouchableOpacity, View } from "react-native";
 import { Text } from "native-base";
-import { router, useLocalSearchParams } from "expo-router";
 import { Header } from "../../components/Header";
 import { StyleSheet } from "react-native";
 import { useAuth } from "../../hooks/useAuth";

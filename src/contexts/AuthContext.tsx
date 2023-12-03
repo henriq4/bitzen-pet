@@ -2,7 +2,6 @@ import { createContext, useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import * as SecureStore from "expo-secure-store";
 import { User } from "../models/User";
-import { router } from "expo-router";
 import { API_URL } from "../config/constants";
 
 export type signUpCredentials = {

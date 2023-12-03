@@ -1,6 +1,5 @@
 import {
   StyleSheet,
-  TouchableHighlight,
   TouchableOpacity,
   View,
   ScrollView,
@@ -14,8 +13,6 @@ import { signUpCredentials } from "../../contexts/AuthContext";
 import { router } from "expo-router";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ArrowIosRightIcon } from "../../components/Icons/ArrowIosRightIcon";
-import { PetBrandIcon } from "../../components/Icons/PetBrandIcon";
 import { Checkbox, Container, Text } from "native-base";
 import { Header } from "../../components/Header";
 import { useState } from "react";

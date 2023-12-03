@@ -1,18 +1,9 @@
-import {
-  ImageBackground,
-  ScrollView,
-  ToastAndroid,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ImageBackground, ScrollView, ToastAndroid, View } from "react-native";
 import { Button, Text } from "native-base";
 import { router, useLocalSearchParams } from "expo-router";
 import { usePetStore } from "../../store/petStore";
 import { StyleSheet } from "react-native";
-import { Controller } from "react-hook-form";
 import { Header } from "../../components/Header";
-import { TextInput } from "../../components/Form/TextInput";
-import { TextAreaInput } from "../../components/Form/TextAreaInput";
 import { useEffect, useState } from "react";
 import { deletePet, fetchPet } from "../../services/petService";
 import { Pet } from "../../models/Pet";

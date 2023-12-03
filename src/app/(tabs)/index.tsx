@@ -1,9 +1,8 @@
-import { FlatList, ImageBackground, ToastAndroid, View } from "react-native";
+import { FlatList, ToastAndroid, View } from "react-native";
 
 import { Button, Text } from "native-base";
 import { StyleSheet } from "react-native";
 import { AddRoundedIcon } from "../../components/Icons/AddRoundedIcon";
-import { SearchIcon } from "../../components/Icons/SearchIcon";
 import { PetCard } from "../../components/PetCard";
 import { router } from "expo-router";
 import { SearchBar } from "../../components/Form/SearchBar";
@@ -11,7 +10,6 @@ import { useEffect, useState } from "react";
 import { fetchPets } from "../../services/petService";
 import { PetRaw } from "../../models/Pet";
 import { Loading } from "../../components/Utils/Loading";
-import { usePetStore } from "../../store/petStore";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(false);

@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  ToastAndroid,
-  TouchableHighlight,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, ToastAndroid, TouchableOpacity, View } from "react-native";
 import { useAuth } from "../../hooks/useAuth";
 import { TextInput } from "../../components/Form/TextInput";
 import { Button } from "../../components/Form/Button";
@@ -13,7 +7,6 @@ import { signInCredentials } from "../../contexts/AuthContext";
 import { router } from "expo-router";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ArrowIosRightIcon } from "../../components/Icons/ArrowIosRightIcon";
 import { PetBrandIcon } from "../../components/Icons/PetBrandIcon";
 import { Container, Text } from "native-base";
 

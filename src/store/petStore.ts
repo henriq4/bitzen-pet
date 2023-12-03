@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { Pet } from "../models/Pet";
 
 interface PetStoreState {
   petId: string[];

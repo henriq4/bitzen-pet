@@ -1,16 +1,9 @@
-import {
-  Image,
-  StyleSheet,
-  ToastAndroid,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { Input, ScrollView, Text, TextArea, ZStack } from "native-base";
-import { router, useLocalSearchParams } from "expo-router";
+import { StyleSheet, ToastAndroid, View } from "react-native";
+import { ScrollView, Text } from "native-base";
+import { router } from "expo-router";
 import { Header } from "../../components/Header";
 import { DatePicker } from "../../components/Form/DatePicker";
 import { TextInput } from "../../components/Form/TextInput";
-import { CalendarIcon } from "../../components/Icons/CalendarIcon";
 import { ImagePicker } from "../../components/Form/ImagePicker";
 import { TextAreaInput } from "../../components/Form/TextAreaInput";
 import { Button } from "../../components/Form/Button";
@@ -20,8 +13,6 @@ import { Controller, set, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createPet } from "../../services/petService";
 import { useDatePicker } from "../../components/Form/DatePicker/hook";
-import * as ExpoImagePicker from "expo-image-picker";
-import { useEffect, useRef, useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { usePickImage } from "../../components/Form/ImagePicker/hook";
 import { formatDate } from "../../utils/formatDate";

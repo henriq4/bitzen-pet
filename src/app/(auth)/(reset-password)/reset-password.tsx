@@ -9,11 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { TextInput } from "../../../components/Form/TextInput";
 import { router } from "expo-router";
-import {
-  resetPassword,
-  sendResetPasswordConfirmationToken,
-  sendResetPasswordEmail,
-} from "../../../services/userService";
+import { resetPassword } from "../../../services/userService";
 import { Button } from "../../../components/Form/Button";
 import { UserResetPasswordStore } from "../../../store/userResetPasswordStore";
 

@@ -1,6 +1,6 @@
 import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import { Text } from "native-base";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { PetRaw } from "../../models/Pet";
 import { usePetStore } from "../../store/petStore";
 

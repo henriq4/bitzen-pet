@@ -1,10 +1,8 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
-import { Redirect, Slot, SplashScreen, Stack } from "expo-router";
+import { Slot, SplashScreen } from "expo-router";
 import { AuthProvider } from "../contexts/AuthContext";
 import { useEffect } from "react";
-import { useAuth } from "../hooks/useAuth";
-import TabLayout from "./(tabs)/_layout";
 import { NativeBaseProvider } from "native-base";
 
 export { ErrorBoundary } from "expo-router";

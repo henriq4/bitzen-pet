@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { API_URL } from "../config/constants";
-import { CreatePet, Pet, PetRaw } from "../models/Pet";
+import { Pet, PetRaw } from "../models/Pet";
 
 export async function fetchPets(): Promise<PetRaw[]> {
   const {

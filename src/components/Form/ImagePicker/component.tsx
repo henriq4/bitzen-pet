@@ -1,8 +1,7 @@
 import { Text } from "native-base";
-import { ToastAndroid, StyleSheet, View, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import {} from "react-native";
 import { CameraIcon } from "../../Icons/CameraIcon";
-import { MutableRefObject, Ref, useImperativeHandle, useState } from "react";
 
 interface ImagePickerProps {
   onPress: () => void;
