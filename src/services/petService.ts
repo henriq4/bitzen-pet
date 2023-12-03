@@ -21,8 +21,6 @@ export async function fetchPet(petId: string): Promise<Pet> {
 
   if (message !== "Sucesso!") throw new Error(message);
 
-  console.log(pet);
-
   return pet;
 }
 

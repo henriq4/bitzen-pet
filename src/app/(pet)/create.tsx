@@ -72,8 +72,6 @@ export default function PetCreate() {
     formData.append("description", data.description);
     formData.append("birthdate", formattedDate);
 
-    console.log(imageFilename);
-
     formData.append("image", {
       uri: image.uri,
       type: `image/${imageExtension}`,

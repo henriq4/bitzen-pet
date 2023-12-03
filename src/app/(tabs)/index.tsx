@@ -24,8 +24,6 @@ export default function Home() {
       try {
         const pets = await fetchPets();
         setPets(pets);
-        console.log(pets);
-        console.log(pets.length);
       } catch (error) {
         if (error instanceof Error) {
           ToastAndroid.show(error.message, ToastAndroid.SHORT);

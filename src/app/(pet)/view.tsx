@@ -31,7 +31,6 @@ export default function PetView() {
       try {
         const pet = await fetchPet(petId[0]);
         setPet(pet);
-        console.log(pet);
       } catch (error) {
         if (error instanceof Error) {
           ToastAndroid.show(error.message, ToastAndroid.SHORT);
