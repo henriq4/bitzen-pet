@@ -1,8 +1,8 @@
 import axios from "axios";
 import { API_URL } from "../config/constants";
-import { CreatePet, PetRaw } from "../models/Pet";
+import { CreatePet, Pet, PetRaw } from "../models/Pet";
 
-export async function fetchPet(): Promise<PetRaw[]> {
+export async function fetchPets(): Promise<PetRaw[]> {
   const {
     data: { data, message },
   } = await axios.get(`${API_URL}/pets`);
@@ -12,6 +12,18 @@ export async function fetchPet(): Promise<PetRaw[]> {
   const pets: PetRaw[] = data.data;
 
   return pets;
+}
+
+export async function fetchPet(petId: string): Promise<Pet> {
+  const {
+    data: { data: pet, message },
+  } = await axios.get(`${API_URL}/pets/${petId}`);
+
+  if (message !== "Sucesso!") throw new Error(message);
+
+  console.log(pet);
+
+  return pet;
 }
 
 export async function createPet(data: FormData): Promise<void> {

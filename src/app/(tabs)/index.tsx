@@ -8,9 +8,10 @@ import { PetCard } from "../../components/PetCard";
 import { router } from "expo-router";
 import { SearchBar } from "../../components/Form/SearchBar";
 import { useEffect, useState } from "react";
-import { fetchPet } from "../../services/petService";
+import { fetchPets } from "../../services/petService";
 import { PetRaw } from "../../models/Pet";
 import { Loading } from "../../components/Utils/Loading";
+import { usePetStore } from "../../store/petStore";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -21,7 +22,7 @@ export default function Home() {
       setIsLoading(true);
 
       try {
-        const pets = await fetchPet();
+        const pets = await fetchPets();
         setPets(pets);
         console.log(pets);
         console.log(pets.length);

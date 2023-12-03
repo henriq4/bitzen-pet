@@ -2,9 +2,12 @@ import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import { Text } from "native-base";
 import { Link, useRouter } from "expo-router";
 import { PetRaw } from "../../models/Pet";
+import { usePetStore } from "../../store/petStore";
 
 export function PetCard({ id, image_url, name }: PetRaw) {
   const router = useRouter();
+
+  const { selectPet } = usePetStore();
 
   return (
     <ImageBackground
@@ -15,6 +18,7 @@ export function PetCard({ id, image_url, name }: PetRaw) {
       <TouchableOpacity
         style={styles.cardFilter}
         onPress={() => {
+          selectPet(id.toString());
           router.push("/(pet)/view");
         }}
       >
