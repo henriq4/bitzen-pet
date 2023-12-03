@@ -38,14 +38,6 @@ export default function Home() {
     fetchData();
   }, []);
 
-  // if (isLoading) {
-  //   return (
-  //     <Center>
-  //       <Text>aa</Text>
-  //     </Center>
-  //   );
-  // }
-
   return (
     <View style={styles.container}>
       <View
@@ -87,7 +79,6 @@ export default function Home() {
         <Loading accessibilityLabel="Carregando pets" />
       ) : (
         <FlatList
-          ListEmptyComponent={<Text>bb</Text>}
           ListHeaderComponent={<SearchBar placeholder="Pesquisar um pet" />}
           style={styles.contentContainer}
           data={pets}

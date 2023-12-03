@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Text } from "native-base";
+import { Button, Text } from "native-base";
 import { router, useLocalSearchParams } from "expo-router";
 import { usePetStore } from "../../store/petStore";
 import { StyleSheet } from "react-native";
@@ -14,9 +14,10 @@ import { Header } from "../../components/Header";
 import { TextInput } from "../../components/Form/TextInput";
 import { TextAreaInput } from "../../components/Form/TextAreaInput";
 import { useEffect, useState } from "react";
-import { fetchPet } from "../../services/petService";
+import { deletePet, fetchPet } from "../../services/petService";
 import { Pet } from "../../models/Pet";
 import { Loading } from "../../components/Utils/Loading";
+import { ConfirmationDialog } from "../../components/Form/ConfirmationDialog";
 
 export default function PetView() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -101,6 +102,20 @@ export default function PetView() {
             </View>
           </View>
 
+          <Button
+            onPress={() => {
+              ConfirmationDialog({
+                onPress: async () => {
+                  await deletePet(petId[0]);
+                  router.push("/(tabs)/");
+                },
+              });
+            }}
+            marginTop="20px"
+            backgroundColor="red.700"
+          >
+            Excluir
+          </Button>
           <View style={{ height: 40 }} />
         </View>
       )}

@@ -33,3 +33,11 @@ export async function createPet(data: FormData): Promise<void> {
     },
   });
 }
+
+export async function deletePet(petId: string): Promise<void> {
+  const {
+    data: { message },
+  } = await axios.delete(`${API_URL}/pets/${petId}`);
+
+  if (message !== "Sucesso!") throw new Error(message);
+}
