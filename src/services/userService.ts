@@ -1,5 +1,27 @@
 import axios from "axios";
 import { API_URL } from "../config/constants";
+import { User } from "../models/User";
+
+interface IGetRefreshToken {
+  token: string;
+  user: User;
+}
+
+export async function getRefreshToken(): Promise<IGetRefreshToken> {
+  const {
+    data: {
+      data: { token, user },
+      message,
+    },
+  } = await axios.post(`${API_URL}/refresh-token`);
+
+  if (message !== "Sucesso!") throw new Error(message);
+
+  return {
+    token,
+    user,
+  };
+}
 
 export async function sendResetPasswordEmail(email: string) {
   const {

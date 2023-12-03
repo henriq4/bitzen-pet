@@ -3,6 +3,8 @@ import axios, { AxiosError } from "axios";
 import * as SecureStore from "expo-secure-store";
 import { User } from "../models/User";
 import { API_URL } from "../config/constants";
+import { getRefreshToken } from "../services/userService";
+import { router } from "expo-router";
 
 export type signUpCredentials = {
   name: string;
@@ -42,6 +44,19 @@ export const AuthProvider = ({ children }: any) => {
 
       if (token) {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+        try {
+          const { token: newToken, user } = await getRefreshToken();
+
+          axios.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
+
+          await SecureStore.setItemAsync(AUTH_TOKEN, newToken);
+          setUser(user);
+
+          router.replace("/");
+        } catch (error) {
+          console.log(error);
+        }
       }
     };
 
