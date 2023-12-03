@@ -14,7 +14,7 @@ export default function UserData() {
 
       <View style={styles.content}>
         <ImageBackground
-          source={{ uri: user?.profile_photo_url }}
+          source={{ uri: "https://i.ibb.co/5FT3xbT/1.png" }}
           borderRadius={999}
           style={styles.avatar}
         />
