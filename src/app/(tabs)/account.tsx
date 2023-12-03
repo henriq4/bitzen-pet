@@ -12,7 +12,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { router } from "expo-router";
 
 export default function Account() {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
 
   return (
     <View style={styles.container}>
@@ -40,7 +40,7 @@ export default function Account() {
           marginLeft="16px"
         >
           <Text fontSize="20px" color="#262626">
-            Ana Maria
+            {user?.name}
           </Text>
           <Text fontSize="14px" color="#8C8C8C">
             Curitiba, PR
