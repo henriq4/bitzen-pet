@@ -10,6 +10,9 @@ export function TextAreaInput({ errorMessage, ...rest }: TextAreaInputProps) {
   return (
     <FormControl isInvalid={isInputInvalid}>
       <TextArea
+        borderColor="#8C8C8C"
+        fontSize="14px"
+        placeholderTextColor="#8C8C8C"
         autoCompleteType={false}
         isInvalid={isInputInvalid}
         _invalid={{
